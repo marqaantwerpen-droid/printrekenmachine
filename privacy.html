@@ -36,8 +36,10 @@
 
   <h2>Welke gegevens verzamelen wij?</h2>
   <p>Geen. De app verzamelt, verstuurt of deelt <strong>geen persoonsgegevens</strong>.
-  Er zijn geen accounts, geen analytics en geen advertenties. De app stuurt niets
-  naar ons of naar derden.</p>
+  Er zijn geen accounts, geen analytics en geen advertenties. De app stuurt geen
+  persoonsgegevens naar ons of naar derden; de enige netwerkverbindingen zijn het
+  printen naar je eigen printer (lokaal) en, in het tabblad Koers, een koersverzoek
+  aan een openbare koersendienst.</p>
 
   <h2>Wat wordt er lokaal opgeslagen?</h2>
   <p>Alleen op jouw toestel: je berekeningen (de tape), opgeslagen sessies en je
@@ -49,9 +51,19 @@
   printer gestuurd — over je eigen lokale WiFi-netwerk of via Bluetooth. Er komt geen
   server of internetdienst aan te pas.</p>
 
+  <h2>Wisselkoersen</h2>
+  <p>In het tabblad Koers haalt de app actuele wisselkoersen op bij een openbare, gratis
+  koersendienst (open.er-api.com, met de Europese Centrale Bank via api.frankfurter.dev
+  als reserve). Daarbij wordt alleen een standaard koersverzoek verstuurd — geen account,
+  geen persoonsgegevens, geen locatie, geen identificatiegegevens, geen analytics of
+  tracking. De opgehaalde koersen worden lokaal bewaard zodat je ook offline kunt
+  omrekenen; ophalen gebeurt alleen wanneer je op Ververs tikt of bij de eerste keer
+  openen per dag.</p>
+
   <h2>Permissies</h2>
   <ul>
-    <li><strong>Internet / lokaal netwerk</strong> — om een WiFi-printer op je netwerk te bereiken.</li>
+    <li><strong>Internet / lokaal netwerk</strong> — om een WiFi-printer op je netwerk te bereiken
+    en om in het tabblad Koers wisselkoersen op te halen bij een openbare koersendienst.</li>
     <li><strong>Bluetooth</strong> — om een Bluetooth-printer te vinden en ernaar te printen.
     De Bluetooth-scan is gemarkeerd als "nooit voor locatie"; we gebruiken geen locatiegegevens.</li>
   </ul>
@@ -68,8 +80,9 @@
 
   <h2>What data do we collect?</h2>
   <p>None. The app does <strong>not</strong> collect, transmit or share any personal
-  data. There are no accounts, no analytics and no ads. The app sends nothing to us or
-  to any third party.</p>
+  data. There are no accounts, no analytics and no ads. The app sends no personal data
+  to us or to any third party; the only network requests are printing to your own printer
+  (local) and, in the Rate tab, a rate request to a public exchange-rate service.</p>
 
   <h2>What is stored locally?</h2>
   <p>On your device only: your calculations (the tape), saved sessions and your settings
@@ -80,9 +93,17 @@
   <p>When you print, the receipt data is sent directly to the printer you chose — over
   your own local WiFi network or via Bluetooth. No server or internet service is involved.</p>
 
+  <h2>Exchange rates</h2>
+  <p>In the Rate tab the app fetches current exchange rates from a public, free rate service
+  (open.er-api.com, with the European Central Bank via api.frankfurter.dev as a fallback).
+  Only a standard rate request is sent — no account, no personal data, no location, no
+  identifiers, no analytics or tracking. The fetched rates are cached locally so you can
+  convert offline too; fetching happens only when you tap Refresh or on the first open of the day.</p>
+
   <h2>Permissions</h2>
   <ul>
-    <li><strong>Internet / local network</strong> — to reach a WiFi printer on your network.</li>
+    <li><strong>Internet / local network</strong> — to reach a WiFi printer on your network
+    and, in the Rate tab, to fetch exchange rates from a public rate service.</li>
     <li><strong>Bluetooth</strong> — to find and print to a Bluetooth printer. The Bluetooth
     scan is flagged "never for location"; we do not use location data.</li>
   </ul>
