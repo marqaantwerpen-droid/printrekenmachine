@@ -15,7 +15,7 @@ Commando's  {"cmd": ...}
   stop                                         alles direct stoppen, wachtrij leeg
   relax                                        servo's slap (stroom besparen)
   wake                                         opstaan
-  pose     name=stand|sit|rest|neutral  [height 35-90] [reach 70-120] [ms]
+  pose     name=stand|sit|rest|neutral  [height 35-90] [reach 50-120] [ms]
   height   height=35-90 [ms]                   lichaam hoger/lager
   walk     dir=forward|backward|left|right|turn_left|turn_right
            [steps 1-40] [speed 0.3-2.0] [stride 10-60 mm]

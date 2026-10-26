@@ -45,21 +45,43 @@ constexpr bool    HALL_ACTIVE_LOW = true;   // KY-003/A3144: LOW = magneet
 constexpr uint8_t PIN_VBAT    = 35;    // optioneel: accuspanning via 100k/47k deler
 constexpr float   VBAT_DIVIDER = (100.0f + 47.0f) / 47.0f;
 
-// ---------- Beengeometrie (mm) — klopt met de CAD-onderdelen ----------
-constexpr float COXA_LEN  = 30.0f;    // heup-as tot dij-as
-constexpr float FEMUR_LEN = 50.0f;    // dij-as tot knie-as
-constexpr float TIBIA_LEN = 70.0f;    // knie-as tot voetpunt
+// ---------- Frame / beengeometrie (mm) ----------
+// 1 = het veelgebruikte "Quadruped Spider Robot (SG90, Arduino Nano)"-frame
+//     (o.a. PCBWay, regishsu / DIY GUY Chris), 0 = de eigen SPIN-onderdelen in cad/.
+// Meet je eigen print na en pas de waarden aan; zie README "Eigen frame".
+#define FRAME_SPIDER_SG90 1
 
-// Montagehoek van elke heup t.o.v. de voorkant (graden, CCW, x = vooruit)
-constexpr float LEG_MOUNT_DEG[NUM_LEGS] = { 45.0f, -45.0f, 135.0f, -135.0f };
-constexpr float BODY_HALF = 55.0f;    // afstand centrum -> heup-as (mm)
-
-// Standaard stand
-constexpr float STAND_REACH  = 95.0f; // horizontale afstand heup -> voet
-constexpr float STAND_HEIGHT = 70.0f; // dij-as boven de grond (buik ~25 mm vrij)
+#if FRAME_SPIDER_SG90
+constexpr float COXA_LEN  = 27.5f;    // heup-as tot dij-as          (length_c)
+constexpr float FEMUR_LEN = 55.0f;    // dij-as tot knie-as          (length_a)
+constexpr float TIBIA_LEN = 77.5f;    // knie-as tot voetpunt        (length_b)
+constexpr float HIP_SPACING = 71.0f;  // afstand tussen heupassen    (length_side)
+// Positie van elke heup-as (x vooruit, y links) — vierkant van HIP_SPACING
+constexpr float LEG_HIP_X[NUM_LEGS] = { HIP_SPACING / 2,  HIP_SPACING / 2, -HIP_SPACING / 2, -HIP_SPACING / 2 };
+constexpr float LEG_HIP_Y[NUM_LEGS] = { HIP_SPACING / 2, -HIP_SPACING / 2,  HIP_SPACING / 2, -HIP_SPACING / 2 };
+// Richting waarin de heup wijst als de heupservo op 90° staat (CCW, 0 = vooruit)
+constexpr float LEG_NEUTRAL_DEG[NUM_LEGS] = { 90.0f, -90.0f, 90.0f, -90.0f };
+// Richting van de voet in rusthouding: iets naar voren/achteren gespreid
+constexpr float LEG_FOOT_DEG[NUM_LEGS] = { 60.0f, -60.0f, 120.0f, -120.0f };
+constexpr float STAND_REACH  = 70.0f; // horizontale afstand heup -> voet
+constexpr float STAND_HEIGHT = 55.0f; // dij-as boven de grond
+constexpr float REST_HEIGHT  = 30.0f; // buik rust op de grond
+constexpr float MIN_WALK_HEIGHT = 50.0f;
+#else
+constexpr float COXA_LEN  = 30.0f;
+constexpr float FEMUR_LEN = 50.0f;
+constexpr float TIBIA_LEN = 70.0f;
+constexpr float BODY_HALF = 55.0f;    // centrum -> heup-as, op de diagonalen
+constexpr float LEG_HIP_X[NUM_LEGS] = { BODY_HALF * 0.7071f,  BODY_HALF * 0.7071f, -BODY_HALF * 0.7071f, -BODY_HALF * 0.7071f };
+constexpr float LEG_HIP_Y[NUM_LEGS] = { BODY_HALF * 0.7071f, -BODY_HALF * 0.7071f,  BODY_HALF * 0.7071f, -BODY_HALF * 0.7071f };
+constexpr float LEG_NEUTRAL_DEG[NUM_LEGS] = { 45.0f, -45.0f, 135.0f, -135.0f };
+constexpr float LEG_FOOT_DEG[NUM_LEGS]    = { 45.0f, -45.0f, 135.0f, -135.0f };
+constexpr float STAND_REACH  = 95.0f;
+constexpr float STAND_HEIGHT = 70.0f; // buik ~25 mm vrij
+constexpr float REST_HEIGHT  = 38.0f;
+constexpr float MIN_WALK_HEIGHT = 50.0f;
+#endif
 
 // Bewegingsveiligheid
 constexpr uint32_t MAX_WALK_STEPS = 40;
 constexpr uint16_t MIN_FRAME_MS   = 40;
-constexpr float    REST_HEIGHT    = 38.0f;  // buik rust op de grond
-constexpr float    MIN_WALK_HEIGHT = 50.0f;

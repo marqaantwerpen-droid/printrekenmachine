@@ -299,7 +299,7 @@ String execute(JsonObject c) {
     Pose p;
     if (n == "stand") {
       bodyHeight = constrain(c["height"] | bodyHeight, 35.0f, 90.0f);
-      bodyReach = constrain(c["reach"] | bodyReach, 70.0f, 120.0f);
+      bodyReach = constrain(c["reach"] | bodyReach, 50.0f, 120.0f);
       standPose(p, bodyHeight, bodyReach);
     } else if (n == "sit") {
       const float dz[NUM_LEGS] = {-5, -5, 30, 30};

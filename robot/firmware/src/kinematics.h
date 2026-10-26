@@ -35,20 +35,20 @@ inline bool legIK(uint8_t leg, float x, float y, float z, float *out) {
   return ok;
 }
 
-// Voetpositie in het lichaamsframe (x vooruit, y links) -> lokaal heup-frame.
+// Voetpositie in het lichaamsframe (x vooruit, y links) -> lokaal heup-frame,
+// waarin x de richting is waar de heup op 90° naar wijst.
 inline void bodyToLeg(uint8_t leg, float bx, float by, float &lx, float &ly) {
-  float m = rad(LEG_MOUNT_DEG[leg]);
-  float hx = BODY_HALF * cosf(m), hy = BODY_HALF * sinf(m);
-  float dx = bx - hx, dy = by - hy;
+  float m = rad(LEG_NEUTRAL_DEG[leg]);
+  float dx = bx - LEG_HIP_X[leg], dy = by - LEG_HIP_Y[leg];
   lx = dx * cosf(m) + dy * sinf(m);
   ly = -dx * sinf(m) + dy * cosf(m);
 }
 
 // Rustpositie van een voet in het lichaamsframe.
 inline void homeFoot(uint8_t leg, float reach, float &bx, float &by) {
-  float m = rad(LEG_MOUNT_DEG[leg]);
-  bx = (BODY_HALF + reach) * cosf(m);
-  by = (BODY_HALF + reach) * sinf(m);
+  float f = rad(LEG_FOOT_DEG[leg]);
+  bx = LEG_HIP_X[leg] + reach * cosf(f);
+  by = LEG_HIP_Y[leg] + reach * sinf(f);
 }
 
 // Bouwt een pose waarin elke voet verplaatst is met (dx, dy, dz) en een

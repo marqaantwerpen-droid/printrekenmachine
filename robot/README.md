@@ -15,6 +15,38 @@ Je kunt hem ook **nieuwe bewegingen leren**; die blijven bewaard in het flashgeh
  /   4x dij + 4x scheen       \ <- 3 servo's per poot
 ```
 
+## 0. Al een frame geprint? (PCBWay "Quadruped Spider Robot SG90 / Arduino Nano")
+
+De firmware staat standaard ingesteld op dat veelgebruikte frame (`#define FRAME_SPIDER_SG90 1`
+in `firmware/src/config.h`). De printonderdelen in `cad/` heb je dan niet nodig.
+Alleen `dock.stl` en eventueel `head_shell.stl` (OLED-houder) zijn handig.
+
+Wat er anders is dan in de originele handleiding:
+
+- **ESP32 in plaats van Arduino Nano.** Gebruik de pintabel hieronder en niet de Nano-print of shield.
+  De originele Nano-code (FlexiTimer2) heb je niet nodig.
+- **MG90S in plaats van SG90.** Ze hebben dezelfde maat, maar de MG90S is sterker en iets zwaarder.
+  Gebruik de hoorns die bij de MG90S horen; de SG90-hoorns passen niet op de as.
+- **Hoofdservo's (12, 13) zijn optioneel.** Dit frame heeft geen hoofd. Niet aansluiten is prima.
+
+**Meet je print na** (hart van as tot hart van as, in mm) en zet de waarden in `config.h`:
+
+| Constante | Wat | Standaard |
+|---|---|---|
+| `COXA_LEN` | heupservo-as → dijservo-as | 27.5 |
+| `FEMUR_LEN` | dijservo-as → knieservo-as | 55 |
+| `TIBIA_LEN` | knieservo-as → punt van de voet | 77.5 |
+| `HIP_SPACING` | afstand tussen twee naburige heupassen | 71 |
+
+**Controleer de 90°-stand** (`python3 tools/spin.py pose neutral`, vóór het monteren
+van de hoorns): elke heup wijst **recht opzij** (haaks op de zijkant van het lichaam),
+elke dij staat **horizontaal** en elke scheen hangt **recht naar beneden**. Wijst
+de heup bij jouw frame op 90° schuin naar de hoek, zet dan `LEG_NEUTRAL_DEG` op
+`{45, -45, 135, -135}`.
+
+Poot-nummering, van bovenaf gezien met de voorkant naar voren: 0 = voor-links,
+1 = voor-rechts, 2 = achter-links, 3 = achter-rechts.
+
 ## 1. Wat gebruik je van je onderdelen
 
 | Onderdeel | Gebruik in SPIN |
@@ -70,7 +102,9 @@ module 0 bij een magneet en 4095 zonder, dan klopt `HALL_ACTIVE_LOW = true`.
 Een analoge sensor (49E) werkt ook: kijk naar `hall.raw` in de status en pas de
 drempels in `serviceSensors()` aan.
 
-## 3. Printen
+## 3. Printen (eigen SPIN-onderdelen)
+
+> Heb je het PCBWay-spinframe al geprint? Dan kun je dit hoofdstuk overslaan (zie hoofdstuk 0).
 
 ```bash
 cd robot/cad
@@ -96,7 +130,7 @@ PLA of PETG, 0,2 mm laagdikte, 3 wanden, 25-30 % infill. Past een servo te
 strak of te los? Pas `SERVO_L`/`SERVO_W` (of de hoornmaten) bovenaan
 `spin_parts.py` aan en genereer opnieuw.
 
-## 4. Montage
+## 4. Montage (eigen SPIN-onderdelen; bij het PCBWay-frame: volg die handleiding, maar met de pinnen hierboven)
 
 1. **Zet alle servo's eerst op 90°** voordat je een hoorn monteert: flash de
    firmware, sluit de servo's aan en stuur `python3 tools/spin.py pose neutral`.
